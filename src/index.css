@@ -1,93 +1,137 @@
-/* Base Styles */
+/* Base Styles (Mobile) */
 * {
     box-sizing: border-box;
+    margin: 0;
+    padding: 0;
   }
   
   body {
     font-family: sans-serif;
-    margin: 0;
-    padding: 20px;
+    padding: 10px;
+    min-height: 100vh;
+    background: #f5f9ff;
+    color: #000;
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 100vh;
-    background: #f5f9ff;
-    color: #000000; /* Black text for body */
   }
   
-  /* Game Container (side-by-side) */
+  /* Game Container */
   .game {
+    width: 100%;
+    max-width: 800px;
     display: flex;
-    gap: 30px;
-    align-items: flex-start;
+    flex-direction: column; /* Stack vertically on mobile */
+    gap: 20px;
+    padding: 10px;
   }
   
-  /* Taller Board */
+  /* Board */
   .board {
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 5px;
+    width: 100%;
   }
   
-  /* Squares with Black Text */
+  /* Responsive Squares */
   .square {
     background: #fff;
-    border: 2px solid #4da6ff; /* Blue border */
-    float: left;
-    font-size: 28px;
+    border: 2px solid #4da6ff;
+    font-size: clamp(16px, 6vw, 28px); /* Responsive font */
     font-weight: bold;
-    line-height: 50px;
-    height: 70px;
-    width: 70px;
-    margin-right: -1px;
-    margin-top: -1px;
+    line-height: 1;
+    aspect-ratio: 1/1; /* Perfect squares */
+    width: 100%;
+    max-width: 70px; /* Limits size on desktop */
     text-align: center;
     cursor: pointer;
     transition: all 0.2s ease;
-    color: #000000; /* Black text */
+    color: #000;
     border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
   
   .square:hover {
-    background: #e6f2ff; /* Light blue hover */
+    background: #e6f2ff;
     transform: translateY(-3px);
     box-shadow: 0 4px 8px rgba(0, 102, 204, 0.2);
   }
   
-  /* Winning squares (keep blue highlight, black text) */
-  .square.winning {
-    animation: pulse 0.8s infinite alternate;
-    background: #b3d9ff; /* Light blue */
-    color: #000000; /* Black text */
+  /* Board Grid Fix */
+  .board-row {
+    display: flex;
+    gap: 5px;
   }
   
-  /* Status Text (Black) */
-  .status {
-    margin-bottom: 20px;
-    font-size: 1.4rem;
-    color: #000000; /* Black text */
-    font-weight: bold;
+  .board-row:after {
+    display: none; /* Disable old float clearfix */
   }
   
-  /* History Buttons (Blue background, Black text) */
+  /* Game Info (History) */
+  .game-info {
+    width: 100%;
+  }
+  
+  .game-info ol {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding-left: 20px;
+    max-height: 200px;
+    overflow-y: auto;
+  }
+  
+  /* History Buttons */
   .game-info button {
-    margin: 5px 0;
     padding: 8px 12px;
-    background: #4da6ff; /* Solid blue */
-    color: #000000; /* Black text */
+    background: #4da6ff;
+    color: #000;
     border: none;
     border-radius: 20px;
     font-weight: bold;
     transition: all 0.3s ease;
+    width: 100%;
+    text-align: left;
   }
   
-  .game-info button:hover {
-    background: #66b3ff; /* Lighter blue */
-    transform: translateY(-2px);
+  /* Status Text */
+  .status {
+    font-size: clamp(18px, 5vw, 24px);
+    margin-bottom: 15px;
+    text-align: center;
   }
   
-  /* Current move button (Orange highlight, Black text) */
-  .game-info button.current-move {
-    background: #ffcc4d;
-    color: #000000;
+  /* Tablet/Desktop Layout (Side-by-Side) */
+  @media (min-width: 768px) {
+    .game {
+      flex-direction: row; /* Side-by-side on larger screens */
+      align-items: flex-start;
+    }
+    
+    .board {
+      width: auto;
+    }
+    
+    .game-info {
+      width: 200px;
+    }
+    
+    .game-info button {
+      width: auto;
+      min-width: 120px;
+    }
+  }
+  
+  /* Winning Animation (Unchanged) */
+  .square.winning {
+    animation: pulse 0.8s infinite alternate;
+    background: #b3d9ff;
+  }
+  
+  @keyframes pulse {
+    from { transform: scale(1); }
+    to { transform: scale(1.05); }
   }
