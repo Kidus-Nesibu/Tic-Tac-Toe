@@ -5,6 +5,7 @@ import App from './App.jsx'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
+    <h1>Shibre you will never win! against your selve</h1>
     <App />
   </StrictMode>,
 )
